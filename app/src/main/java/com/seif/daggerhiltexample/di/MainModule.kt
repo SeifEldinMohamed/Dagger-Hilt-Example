@@ -3,19 +3,21 @@ package com.seif.daggerhiltexample.di
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.scopes.ActivityScoped
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class) // to scope this dependencies
-object AppModule {
+@InstallIn(ActivityComponent::class) // to scope this dependencies
+object MainModule {
 
-    @Singleton // this will make this string singleton ( only have one instance )
+   // @Singleton // work only with application component "equivalent -> activityScoped
+    @ActivityScoped
     @Provides // to tell dagger hilt that we want to provide a dependency
-    @Named("string1") // to differentiate bet two strings dependencies
-    fun provideTestString1() = "this is a string we will inject"
-
+    @Named("string2")
+    fun provideTestString2() = "this is a string we will inject as well"
 }
 // this are containers for the dependencies that live specific amount of time
 // we will define all dependencies that live as long as our application does

@@ -1,6 +1,7 @@
 package com.seif.daggerhiltexample
 
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -11,6 +12,8 @@ import android.view.Menu
 import android.view.MenuItem
 import com.seif.daggerhiltexample.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
+import javax.inject.Named
 
 @AndroidEntryPoint // to inject any thing in android components such as activities, fragments and views
 class MainActivity : AppCompatActivity() {
@@ -18,8 +21,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
+    @Inject // it will search in the modules for string dependency to assign to it
+    @Named("string2")
+    lateinit var testString: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Log.d("Main", "Test String From Main Activity: $testString")
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
